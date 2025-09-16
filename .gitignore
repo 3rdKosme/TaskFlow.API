@@ -1,0 +1,44 @@
+# Build results
+bin/
+obj/
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.vcxproj.filters
+
+# Visual Studio files
+.vs/
+*.csproj.user
+*.sln.ide/
+
+# NuGet
+packages/
+
+# ReSharper
+_ReSharper*/
+*.ReSharper
+
+# MSTest
+TestResults/
+
+# Logs
+*.log
+
+# Environment config (NEVER commit real secrets!)
+appsettings.json
+appsettings.Development.json
+secrets.json
+
+# Docker (local override)
+docker-compose.override.yml
+
+# Local IDE/workspace settings
+/.idea/
+/.vscode/  # на случай, если кто-то откроет в VS Code — пусть тоже игнорится
+
+# Coverage reports (если будешь генерить)
+coverage*.xml
+coverage*.json
