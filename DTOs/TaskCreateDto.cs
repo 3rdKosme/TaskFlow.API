@@ -6,7 +6,7 @@ namespace TaskFlow.API.DTOs
     {
         [Required, MaxLength(200)]
         public string Title { get; set; } = string.Empty;
-        public string? Descripton { get; set; }
+        public string? Description { get; set; }
         public DateTime? DueDate { get; set; }
     }
 }
