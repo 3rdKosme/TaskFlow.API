@@ -43,3 +43,5 @@ docker-compose.yml
 # Coverage reports (если будешь генерить)
 coverage*.xml
 coverage*.json
+
+postgres-data/
