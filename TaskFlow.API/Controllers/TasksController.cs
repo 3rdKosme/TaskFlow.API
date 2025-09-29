@@ -31,8 +31,7 @@ namespace TaskFlow.API.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateTask([FromBody] TaskCreateDto dto)
         {
-            var userId = GetUserId();
-            var taskDto = await _taskService.CreateTaskAsync(dto, userId);
+            var taskDto = await _taskService.CreateTaskAsync(dto);
             return CreatedAtAction(nameof(GetTaskById), new { id = taskDto.Id }, taskDto);
         }
 
@@ -40,7 +39,7 @@ namespace TaskFlow.API.Controllers
         public async Task<IActionResult> GetTasks([FromQuery] bool? isCompleted = null, [FromQuery] DateTime? dueDate = null)
         {
             var userId = GetUserId();
-            var tasks = await _taskService.GetTasksAsync(userId, isCompleted, dueDate);
+            var tasks = await _taskService.GetTasksByUserIdAsync(userId, isCompleted, dueDate);
             return Ok(tasks);
         }
 
@@ -48,7 +47,7 @@ namespace TaskFlow.API.Controllers
         public async Task<IActionResult> GetTaskById(int id)
         {
             var userId = GetUserId();
-            var tasks = await _taskService.GetTasksAsync(userId);
+            var tasks = await _taskService.GetTasksByUserIdAsync(userId);
             var task = tasks.FirstOrDefault(t => t.Id == id);
             if (task == null)
             {
@@ -75,8 +74,7 @@ namespace TaskFlow.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTask(int id)
         {
-            var userId = GetUserId();
-            var deleted = await _taskService.DeleteTaskAsync(id, userId);
+            var deleted = await _taskService.DeleteTaskAsync(id);
             if (!deleted)
             {
                 return NotFound("Task not found ot access denied");
