@@ -1,0 +1,22 @@
+services:
+    db:
+        image: postgres:16
+        restart: always
+        environment:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: YOURPASSWORD
+            POSTGRES_DB: TaskFlowDb
+        ports:
+            - "5432:5432"
+        volumes:
+            - ./postgres-data:/var/lib/postgresql/data 
+    api:
+        build: .
+        ports:
+            - "8080:8080"
+        environment:
+            - ConnectionStrings__DefaultConnection=Host=db;Database=TaskFlowDb;Username=postgres;Password=YOURPASSWORD
+            - Jwt__Key=32DIGITSSECRETCODE
+        depends_on:
+            - db
+        restart: on-failure

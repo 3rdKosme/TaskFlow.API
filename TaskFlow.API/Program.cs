@@ -95,4 +95,7 @@ using (var scope = app.Services.CreateScope())
     db.Database.Migrate();
 }
 
+var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+app.Urls.Add($"http://*:{port}");
+
 app.Run();
