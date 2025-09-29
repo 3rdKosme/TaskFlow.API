@@ -15,14 +15,14 @@ namespace TaskFlow.API.Services
             _context = context;
         }
 
-        public async Task<TaskDto> CreateTaskAsync(TaskCreateDto dto, int userId)
+        public async Task<TaskDto> CreateTaskAsync(TaskCreateDto dto)
         {
             var task = new TaskItem
             {
                 Title = dto.Title,
                 Description = dto.Description,
                 DueDate = dto.DueDate,
-                UserId = userId,
+                UserId = dto.UserId,
                 CreatedAt = DateTime.UtcNow
             };
 
@@ -40,7 +40,7 @@ namespace TaskFlow.API.Services
             };
         }
 
-        public async Task<List<TaskDto>> GetTasksAsync(int userId, bool? isCompleted = null, DateTime? dueDate = null)
+        public async Task<List<TaskDto>> GetTasksByUserIdAsync(int userId, bool? isCompleted = null, DateTime? dueDate = null)
         {
             var query = _context.Tasks.Where(t => t.UserId == userId).AsQueryable();
 
@@ -63,7 +63,8 @@ namespace TaskFlow.API.Services
                 Description = t.Description,
                 DueDate = t.DueDate,
                 IsCompleted = t.IsCompleted,
-                CreatedAt = t.CreatedAt
+                CreatedAt = t.CreatedAt,
+                UserId = userId
             }).ToList();
         }
 
@@ -93,9 +94,9 @@ namespace TaskFlow.API.Services
             };
         }
 
-        public async Task<bool> DeleteTaskAsync(int id, int userId)
+        public async Task<bool> DeleteTaskAsync(int id)
         {
-            var task = await _context.Tasks.FirstOrDefaultAsync(t => t.Id == id && t.UserId == userId);
+            var task = await _context.Tasks.FirstOrDefaultAsync(t => t.Id == id);
 
             if (task == null)
             {
