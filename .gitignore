@@ -28,12 +28,13 @@ TestResults/
 *.log
 
 # Environment config (NEVER commit real secrets!)
-appsettings.json
+
 appsettings.Development.json
 secrets.json
 
 # Docker (local override)
 docker-compose.override.yml
+docker-compose.yml
 
 # Local IDE/workspace settings
 /.idea/
@@ -42,3 +43,5 @@ docker-compose.override.yml
 # Coverage reports (если будешь генерить)
 coverage*.xml
 coverage*.json
+
+postgres-data/
